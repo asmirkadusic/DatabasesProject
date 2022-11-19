@@ -1,6 +1,6 @@
 #include <iostream>
-#include <rethinkdb.h>
 #include <string>
+#include <sw/redis++/redis++.h>
 
 #include "caf/actor_ostream.hpp"
 #include "caf/actor_system.hpp"
