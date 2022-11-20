@@ -1,2 +1,2 @@
 build/*
-subprojects/redis-plus-plus/*
+subprojects/*
