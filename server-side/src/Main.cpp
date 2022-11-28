@@ -6,6 +6,7 @@
 #include "caf/actor_system.hpp"
 #include "caf/caf_main.hpp"
 #include "caf/event_based_actor.hpp"
+#include <User.hpp>
 
 using namespace caf;
 
@@ -38,6 +39,8 @@ void caf_main(actor_system &sys) {
   // create a new actor that calls 'mirror()'
   auto mirror_actor = sys.spawn(mirror);
   // create another actor that calls 'hello_world(mirror_actor)';
+  User newUser(12, "Asmir", "Kadusic");
+  caf::aout(newUser);
   sys.spawn(hello_world, mirror_actor);
   // the system will wait until both actors are done before exiting the program
 }
