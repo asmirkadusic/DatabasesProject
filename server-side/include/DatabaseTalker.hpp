@@ -1,10 +1,13 @@
+#include <sw/redis++/connection.h>
 #include <sw/redis++/redis++.h>
+#include <sw/redis++/redis_cluster.h>
 
 class DatabaseTalker {
 	public:
-		sw::redis::Redis connectToDatabase();
-
+		sw::redis::RedisCluster connectToDatabase();
+		void disconnectFromDatabase();
+	
 	private:
-	bool isConnected{false};
+	bool isConnected_{false};
 };
 

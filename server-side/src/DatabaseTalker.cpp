@@ -1,7 +1,6 @@
 #include <DatabaseTalker.hpp>
+#include <sw/redis++/redis_cluster.h>
 
-sw::redis::Redis DatabaseTalker::connectToDatabase(){
-	auto redis = sw::redis::Redis("tcp://127.0.0.1:7000");
-	isConnected = true;
-	return redis;
+sw::redis::RedisCluster DatabaseTalker::connectToDatabase(){
+	return sw::redis::RedisCluster("tcp://127.0.0.1:7000");
 }
