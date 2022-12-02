@@ -39,8 +39,12 @@ void hello_world(event_based_actor *self, const actor &buddy) {
 
 void caf_main(actor_system &sys) {
 	DatabaseTalker databaseTalker;
-	auto connectionToDatabase = databaseTalker.connectToDatabase();
-	std::cout << connectionToDatabase.ping() << std::endl;	
+	auto cluster = databaseTalker.connectToDatabase();
+	cluster.set("cluster1","7000");
+	auto val = cluster.get("key");
+	if(val){
+		std::cout << *val << std::endl;
+	}
 	auto mirror_actor = sys.spawn(mirror);
   sys.spawn(hello_world, mirror_actor);
 }
