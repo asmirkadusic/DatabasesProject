@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.0)
 
 project(ServerSide)
 
-set(CLANG_COMPILE_FLAGS "-lcaf_core -lcaf_io -lredis++ -lhiredis -std=c++17")
+set(CLANG_COMPILE_FLAGS "-lcaf_core -lcaf_io -lcaf_net -lcaf_openssl -lredis++ -lhiredis -std=c++17")
 
 set(CMAKE_CXX_FLAGS ${CLANG_COMPILE_FLAGS})
 
