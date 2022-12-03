@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.0)
 
 project(ServerSide)
 
-set(CLANG_COMPILE_FLAGS "-lcaf_core -lcaf_io -lredis++ -std=c++17")
+set(CLANG_COMPILE_FLAGS "-lcaf_core -lcaf_io -lredis++ -lhiredis -std=c++17")
 
 set(CMAKE_CXX_FLAGS ${CLANG_COMPILE_FLAGS})
 
@@ -11,7 +11,7 @@ set(HEADER_FILES ../server-side/include)
 
 include_directories("../server-side/include/")
 
-add_executable(${PROJECT_NAME} ../server-side/src/Main.cpp)
+add_executable(${PROJECT_NAME} ../server-side/src/ServerMain.cpp)
 
 #add_subdirectory(subprojects/actor-framework)
 

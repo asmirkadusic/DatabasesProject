@@ -1,4 +1,4 @@
 add_library(ServerSideLib
-	Main.cpp
+	ServerMain.cpp
 	DatabaseTalker.cpp
 	)
