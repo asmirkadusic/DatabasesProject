@@ -19,7 +19,7 @@ caf::behavior ClientActor(caf::stateful_actor<Client>* self,
   }));
 
   return {
-      [self](std::string message) { 
-				caf::aout(self) << message << std::endl;
+      [self](Messages::LoginMessage msg) { 
+				caf::aout(self) << "You are logged in as: " << msg.name << std::endl;
 			}
 };}
