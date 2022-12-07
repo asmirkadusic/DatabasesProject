@@ -21,5 +21,5 @@ add_subdirectory(src)
 
 target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>../server-side/include)
 
-target_link_libraries(${PROJECT_NAME} ServerSideLib -lcaf_core -lcaf_io -lredis++)
-target_link_libraries(${PROJECT_NAME} ServerSideLib -lcaf_core -lcaf_io)
+target_link_libraries(${PROJECT_NAME} ServerSideLib -lcaf_core -lcaf_io -lredis++ -lhiredis)
+target_link_libraries(${PROJECT_NAME} ServerSideLib -lcaf_core -lcaf_io -lredis++ -lhiredis)
