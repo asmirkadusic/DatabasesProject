@@ -1,3 +1,4 @@
+#include "ServerState.hpp"
 #include <sw/redis++/subscriber.h>
 #include <DatabaseTalker.hpp>
 #include <ServerActor.hpp>
@@ -17,22 +18,23 @@ using namespace caf;
 void caf_main(actor_system& system) {
   // Kada se pokrene cluster i uvezu master nodes s komandom redis-cli create
   // onda ce ovo radiit
-  // DatabaseTalker cluster;
-  // auto connection = cluster.connectToCluster();
 
   // connection.set("asmir", "kadusic");
   // connection.subscriber();
 	actor_system_config cfg;
 	cfg.load<caf::io::middleman>();
- 
-	auto StartServer = system.spawn(ServerActor);
-  system.middleman().publish(StartServer, 3000);
-	if(!StartServer){
+	auto startServer = system.spawn(ServerActor);
+  system.middleman().publish(startServer, 3000);
+	
+	if(!startServer){
 	 	cerr << "Actor not spawned. Please try again!" << endl;
 	 	return;
 	 } else {
 		 cout << "Server started successfully!" << endl;
 	}
+
+	// DatabaseTalker cluster;
+	// auto connection = cluster.connectToCluster();
 	while(true){}
 	// subscriber i publisher ovdje i konekcija s klasterom
   // subscriber na konekciju a publisher na kanal koji cemo dobit kao
