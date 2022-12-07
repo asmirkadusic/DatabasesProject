@@ -1,10 +1,6 @@
-#include <caf/exec_main.hpp>
-#include <caf/init_global_meta_objects.hpp>
 #include <sw/redis++/subscriber.h>
-
 #include <DatabaseTalker.hpp>
 #include <ServerActor.hpp>
-#include <caf/actor.hpp>
 #include <caf/actor_ostream.hpp>
 #include <caf/actor_system.hpp>
 #include <caf/actor_system_config.hpp>
@@ -12,7 +8,6 @@
 #include <caf/io/middleman.hpp>
 #include <caf/scoped_actor.hpp>
 #include <caf/system_messages.hpp>
-#include <caf/init_global_meta_objects.hpp>
 #include <iostream>
 
 using namespace std;
@@ -27,15 +22,16 @@ void caf_main(actor_system& system) {
 
   // connection.set("asmir", "kadusic");
   // connection.subscriber();
-  actor_system_config cfg;
-  cfg.load<caf::io::middleman>();
-  auto StartServer = system.spawn(ServerActor);
+	actor_system_config cfg;
+	cfg.load<caf::io::middleman>();
+ 
+	auto StartServer = system.spawn(ServerActor);
   system.middleman().publish(StartServer, 3000);
 	if(!StartServer){
-		cerr << "Actor not spawned. Please try again!" << endl;
-		return;
-	} else {
-		cout << "Server started successfully!" << endl;
+	 	cerr << "Actor not spawned. Please try again!" << endl;
+	 	return;
+	 } else {
+		 cout << "Server started successfully!" << endl;
 	}
 	while(true){}
 	// subscriber i publisher ovdje i konekcija s klasterom
@@ -45,4 +41,4 @@ void caf_main(actor_system& system) {
   // &message);
 }
 
-CAF_MAIN(io::middleman);
+CAF_MAIN(io::middleman, id_block::ServerMessages);
