@@ -20,6 +20,10 @@ void caf_main(actor_system& system){
 	auto server = system.middleman().remote_actor("localhost", 3000);
 	auto client = system.spawn(ClientActor, *server);
 	scoped_actor scope{system};
+	if(server)
+		cout << "Server and client connected";
+	else 
+		cout << "Not connected budalica" << endl;
 }
 
 CAF_MAIN(io::middleman);

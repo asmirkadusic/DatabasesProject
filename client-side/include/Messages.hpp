@@ -3,7 +3,7 @@
 
 namespace Messages {
 struct LoginMessage {
-  User name;
+	std::string name;
   caf::actor myself;
 };
 }  // namespace Messages
