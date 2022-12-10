@@ -10,6 +10,7 @@ CAF_BEGIN_TYPE_ID_BLOCK(ServerMessages, first_custom_type_id)
 	
 	CAF_ADD_TYPE_ID(ServerMessages, (Messages::DirectMessage))
 
+	CAF_ADD_TYPE_ID(ServerMessages, (Messages::ClusterStart));
 	// CAF_ADD_TYPE_ID(ServerMessages, (User))
 
 CAF_END_TYPE_ID_BLOCK(ServerMessages)
@@ -25,8 +26,8 @@ namespace Messages {
 			return f.object(x).fields(f.field("messageValue", x.messageValue), f.field("destination", x.destination), f.field("sender", x.sender) );
 	 	};
 
-	 // template <class Inspector>
-	 //	 bool inspect(Inspector& f, User& x){
-	 //	 return f.object(x).fields(f.field("id_", x.getId()), f.field("username_", x.getUsername()), f.field("password_", x.getPassword()));
-	 //	 }
+	 template <class Inspector>
+	 bool inspect(Inspector& f, Messages::ClusterStart& x){
+		 return f.object(x).fields(f.field("name", x.name));	
+	 }
 } /* Messages */
