@@ -1,3 +1,5 @@
+#pragma once
+
 #include <functional>
 #include <sw/redis++/subscriber.h>
 #include <type_traits>

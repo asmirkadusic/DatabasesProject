@@ -2,7 +2,9 @@
 
 #include <caf/actor.hpp>
 #include <User.hpp>
+#include <memory>
 #include <string>
+#include <sw/redis++/redis_cluster.h>
 
 namespace Messages {
 	struct LoginMessage{
@@ -16,4 +18,7 @@ namespace Messages {
 		std::string sender;
 	};
 
+	struct ClusterStart {
+		std::string name;
+	};
 } /* Messages */
