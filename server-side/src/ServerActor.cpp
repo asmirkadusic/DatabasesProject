@@ -1,13 +1,17 @@
 #include "DatabaseTalker.hpp"
 #include "ServerMessages.hpp"
 #include <ServerActor.hpp>
+#include <algorithm>
 #include <caf/actor_ostream.hpp>
 #include <caf/event_based_actor.hpp>
 #include <caf/message_id.hpp>
 #include <caf/scheduled_actor.hpp>
 #include <caf/stateful_actor.hpp>
 #include <caf/system_messages.hpp>
+#include <chrono>
 #include <cmath>
+#include <functional>
+#include <iterator>
 #include <string>
 #include <sw/redis++/connection.h>
 #include <sw/redis++/redis.h>
@@ -23,18 +27,30 @@ behavior ServerActor(caf::stateful_actor<ServerState::Server>* self){
 
 	return {
 		[self](Messages::LoginMessage loginMessage){
-			if (self->state.LoggedUsers.find(loginMessage.username) == self->state.LoggedUsers.end()){
+			std::string key = loginMessage.username;
+			std::hash<std::string> hashForUsername;
+			std::string keyValue = std::to_string(hashForUsername(loginMessage.username));
+			if (!self->state.conn.get(keyValue).has_value()){
+				self->state.conn.set(keyValue, loginMessage.username);
 				self->state.LoggedUsers.insert({loginMessage.username, loginMessage.myself});
-				caf::aout(self) << "Value: " << loginMessage.username << std::endl;
-				self->state.conn.set(loginMessage.username, loginMessage.username);		
-				self->state.conn.subscriber().subscribe("127.0.0.1");
-				self->state.conn.publish("127.0.0.1", loginMessage.username);
+				caf::aout(self) << keyValue << std::endl;
 			} else {
-				self->send(loginMessage.myself, "User with that name already exsists!");
+				caf::aout(self) << "Hash key exists!" << std::endl;
 				self->send_exit(loginMessage.myself, caf::none);
 			}	
+		},
+		
+		[self](Messages::DirectMessage directMessage){
+			auto it = self->state.LoggedUsers.find(directMessage.destination); 
+			for(auto pair : self->state.LoggedUsers){
+				caf::aout(self) << pair.first << ": " << pair.second << std::endl;
+			}
+			if(it != self->state.LoggedUsers.end()){
+				caf::aout(self) << "Inside if condition" << std::endl;
+				self->send(it->second, directMessage);
+			} else {
+				caf::aout(self) << "User with that username is not active" << std::endl;	
+			}
 		}
-		// iz ovog dijela kada dobijemo poruku od clienta u mainu cemo dalje proslijediti id od clienta, kome se salje poruka i vrijednost poruke.
-		// smisliti nacin kako to izvuci iz actora. vjv postoji
 	};
 }

@@ -2,6 +2,7 @@
 
 #include <caf/actor.hpp>
 #include <User.hpp>
+#include <caf/actor_addr.hpp>
 #include <memory>
 #include <string>
 #include <sw/redis++/redis_cluster.h>
@@ -15,10 +16,11 @@ namespace Messages {
 	struct DirectMessage {
 		std::string messageValue;
 		std::string destination;
-		std::string sender;
+		caf::actor_addr sender;
 	};
-
-	struct ClusterStart {
-		std::string name;
+	
+	struct RequestForChat {
+		std::string requestForReceiver;	
 	};
+	
 } /* Messages */
