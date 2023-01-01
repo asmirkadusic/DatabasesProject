@@ -1,5 +1,6 @@
 #include <User.hpp>
 #include <caf/actor.hpp>
+#include <caf/actor_addr.hpp>
 
 namespace Messages {
 struct LoginMessage {
@@ -10,7 +11,11 @@ struct LoginMessage {
 struct DirectMessage {
 	std::string messageValue;
 	std::string destination;
-	caf::actor sender;
+	caf::actor_addr sender;
+};
+
+struct RequestForChat {
+	std::string request;
 };
 
 }  // namespace Messages
