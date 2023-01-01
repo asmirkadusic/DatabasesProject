@@ -10,8 +10,7 @@ CAF_BEGIN_TYPE_ID_BLOCK(ServerMessages, first_custom_type_id)
 	
 	CAF_ADD_TYPE_ID(ServerMessages, (Messages::DirectMessage))
 
-	CAF_ADD_TYPE_ID(ServerMessages, (Messages::ClusterStart));
-	// CAF_ADD_TYPE_ID(ServerMessages, (User))
+	CAF_ADD_TYPE_ID(ServerMessages, (Messages::RequestForChat))
 
 CAF_END_TYPE_ID_BLOCK(ServerMessages)
 
@@ -27,7 +26,7 @@ namespace Messages {
 	 	};
 
 	 template <class Inspector>
-	 bool inspect(Inspector& f, Messages::ClusterStart& x){
-		 return f.object(x).fields(f.field("name", x.name));	
-	 }
+		 bool inspect(Inspector& f, Messages::RequestForChat& x){
+			 return f.object(x).fields(f.field("Request", x.requestForReceiver));
+		 }
 } /* Messages */

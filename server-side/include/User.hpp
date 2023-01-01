@@ -19,4 +19,5 @@ private:
   int64_t id_;
   std::string username_;
   std::string password_;
+	bool loggedIn_;
 };
