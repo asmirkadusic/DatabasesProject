@@ -22,12 +22,12 @@ bool inspect(Inspector& f, LoginMessage& x) {
 
 template <class Inspector>
 bool inspect(Inspector& f, DirectMessage& x){
-	return f.object(x).fields(f.field("messageValue", x.messageValue), f.field("destination", x.destination), f.field("sender", x.sender));
+	return f.object(x).fields(f.field("messageValue", x.messageValue), f.field("destination", x.destination), f.field("senderName", x.senderName), f.field("sender", x.sender));
 }
 
 template <class Inspector>
 bool inspect(Inspector& f, RequestForChat& x){
-	return f.object(x).fields(f.field("Request", x.request));
+	return f.object(x).fields(f.field("Request", x.usernameForChat), f.field("RequestSender", x.requestSender));
 }
 
 }  // namespace Messages

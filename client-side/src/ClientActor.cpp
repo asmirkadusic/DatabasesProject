@@ -28,6 +28,8 @@ caf::behavior ClientActor(caf::stateful_actor<Client>* self,
 			},
 
 			[self](Messages::DirectMessage value){
-				caf::aout(self) << value.messageValue << std::endl;
+				caf::aout(self) << "========================================" << std::endl;
+				caf::aout(self) << value.senderName << ": " << value.messageValue << std::endl;
+				caf::aout(self) << "========================================" << std::endl;
 			}
 };}

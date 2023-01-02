@@ -22,11 +22,11 @@ namespace Messages {
 
 	 template <class Inspector>
 	 bool inspect(Inspector& f, Messages::DirectMessage& x){
-			return f.object(x).fields(f.field("messageValue", x.messageValue), f.field("destination", x.destination), f.field("sender", x.sender) );
+			return f.object(x).fields(f.field("messageValue", x.messageValue), f.field("destination", x.destination), f.field("senderName", x.senderName) ,f.field("sender", x.sender) );
 	 	};
 
 	 template <class Inspector>
-		 bool inspect(Inspector& f, Messages::RequestForChat& x){
-			 return f.object(x).fields(f.field("Request", x.requestForReceiver));
-		 }
+	 bool inspect(Inspector& f, Messages::RequestForChat& x){
+			 return f.object(x).fields(f.field("usernameForChat", x.usernameForChat), f.field("requestSender", x.requestSender));
+	 };
 } /* Messages */

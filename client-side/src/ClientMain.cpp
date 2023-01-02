@@ -1,9 +1,11 @@
 #include <MessagesData.hpp>
+#include <caf/actor_ostream.hpp>
 #include <caf/actor_system.hpp>
 #include <caf/actor_system_config.hpp>
 #include <caf/exec_main.hpp>
 #include <caf/io/middleman.hpp>
 #include <caf/scoped_actor.hpp>
+#include <chrono>
 #include <cstdint>
 #include <iostream>
 #include <caf/all.hpp>
@@ -40,7 +42,7 @@ void caf_main(actor_system& system){
 	std::string username;
 	cout << "Please insert your name here: ";
 	getline(cin, username);
-	scope->send(*server, Messages::LoginMessage{username});
+	scope->send(*server, Messages::LoginMessage{username, client});
 	menu();
 	int choice = 1;
 	
@@ -52,16 +54,11 @@ void caf_main(actor_system& system){
 			string receiver;
 			cout << "Type username of receiver: ";
 			cin >> receiver;
+			scope->send(*server,  Messages::RequestForChat{receiver, username});
 			while (true) {
 				cout << "Me: ";
 				getline(cin, message);
-				
-				Messages::DirectMessage directMessage;
-				directMessage.destination = receiver;
-				directMessage.messageValue = message;
-				scope->send(*server, directMessage);
-				// client->send(*server, directMessage);
-				// scope->send(*server, directMessage);
+				scope->send(*server, Messages::DirectMessage{message, receiver, username, client->address()});
 			}
 			break;
 		}
