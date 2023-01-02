@@ -16,11 +16,13 @@ namespace Messages {
 	struct DirectMessage {
 		std::string messageValue;
 		std::string destination;
+		std::string senderName;
 		caf::actor_addr sender;
 	};
 	
 	struct RequestForChat {
-		std::string requestForReceiver;	
+		std::string usernameForChat;	
+		std::string requestSender;
 	};
 	
 } /* Messages */
