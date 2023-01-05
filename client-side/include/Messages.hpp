@@ -20,4 +20,9 @@ struct RequestForChat {
 	std::string requestSender;
 };
 
+struct ChatParticipant {
+	std::string withThisUser;
+	size_t chatChannel;
+};
+
 }  // namespace Messages

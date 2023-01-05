@@ -34,11 +34,6 @@ void caf_main(actor_system& system) {
 	}
 		
 	while(true){}
-	// subscriber i publisher ovdje i konekcija s klasterom
-  // subscriber na konekciju a publisher na kanal koji cemo dobit kao
-  // kombinacija hash usera za sad cemo uzeti da je hash dva id sabrana spawnati
-  // actor server ovdje connection.publish(const StringView &channel, StringView
-  // &message);
 }
 
 CAF_MAIN(io::middleman, id_block::ServerMessages);

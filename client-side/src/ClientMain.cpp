@@ -1,4 +1,5 @@
 #include <MessagesData.hpp>
+#include <algorithm>
 #include <caf/actor_ostream.hpp>
 #include <caf/actor_system.hpp>
 #include <caf/actor_system_config.hpp>

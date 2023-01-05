@@ -11,6 +11,8 @@ CAF_BEGIN_TYPE_ID_BLOCK(ClientMessages, first_custom_type_id)
 
 	CAF_ADD_TYPE_ID(ClientMessages, (Messages::RequestForChat))
 
+	CAF_ADD_TYPE_ID(ClientMessages, (Messages::ChatParticipant))
+
 CAF_END_TYPE_ID_BLOCK(ClientMessages)
 
 namespace Messages {
@@ -28,6 +30,11 @@ bool inspect(Inspector& f, DirectMessage& x){
 template <class Inspector>
 bool inspect(Inspector& f, RequestForChat& x){
 	return f.object(x).fields(f.field("Request", x.usernameForChat), f.field("RequestSender", x.requestSender));
+}
+
+template <class Inspector>
+bool inspect(Inspector& f, ChatParticipant& x){
+	return f.object(x).fields(f.field("WithUser", x.withThisUser), f.field("Channel", x.chatChannel));
 }
 
 }  // namespace Messages
