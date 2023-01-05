@@ -24,5 +24,9 @@ namespace Messages {
 		std::string usernameForChat;	
 		std::string requestSender;
 	};
-	
+
+	struct ChatParticipant {
+		std::string withThisUser;
+		size_t chatChannel;
+	};
 } /* Messages */

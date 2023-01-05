@@ -1,3 +1,4 @@
+#include "ClientState.hpp"
 #include <ClientActor.hpp>
 #include <MessagesData.hpp>
 #include <caf/actor_cast.hpp>
@@ -31,5 +32,10 @@ caf::behavior ClientActor(caf::stateful_actor<Client>* self,
 				caf::aout(self) << "========================================" << std::endl;
 				caf::aout(self) << value.senderName << ": " << value.messageValue << std::endl;
 				caf::aout(self) << "========================================" << std::endl;
+			},
+
+			[self](Messages::ChatParticipant msg){
+				caf::aout(self) << msg.chatChannel << std::endl;
+				self->state.pairedUsers.insert({msg.withThisUser, msg.chatChannel});	
 			}
 };}
